@@ -1,27 +1,49 @@
 import tkinter as tk
 from tkinter import ttk
+import settings
+import random
+
+random_number = random.randint(1,100)
+
+def check_number():
+    user_number = textbox.get()
+
+    if not user_number.isdigit():
+        text.configure(text="Type only numbers!", bg="red")
+        return
+    
+    number = int(user_number)
+
+    if number < random_number:
+        text.configure(text="Your number is too small!", fg="blue")
+    elif number > random_number:
+        text.configure(text="Your number is too big!", fg="blue")
+    else:
+        text.configure(text="Congrats! You guessed it!", fg="green")
+
+
 
 window = tk.Tk()
 
-window.title("Main")
-window.geometry("400x400")
+window.title("Guess the number!")
+window.geometry("800x600")
 window.configure(bg="#505D7A")
 
-text = tk.Label(window, text="idk")
+scndscreen = ttk.Notebook(window)
+scndscreen.pack(expand=True, fill="both")
+
+frame1 = tk.Frame(scndscreen, bg="white")
+scndscreen.add(frame1, text="Main")
+
+text = tk.Label(frame1, text="Guess the number!", bg="white", font=("Arial", 16), fg="black")
 text.pack(pady=20)
 
-button = tk.Button(window, text="button")
-button.pack()
+textbox = tk.Entry(frame1)
+textbox.pack()
 
-scndscreen = ttk.Notebook(window)
-scndscreen.pack(expand=True, fill="both", pady=10, padx=10)
+button = tk.Button(frame1, text="Guess", command=check_number)
+button.pack(pady=20)
 
-frame1 = ttk.Frame(scndscreen)
-frame2 = ttk.Frame(scndscreen)
-
-scndscreen.add(frame1, text="Main")
-scndscreen.add(frame2, text="Settings")
-
-
+frame2 = settings.settings_frame(scndscreen)
 
 window.mainloop()
