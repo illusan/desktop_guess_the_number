@@ -1,8 +1,10 @@
-import tkinter as tk
+import customtkinter as ctk
 
 def settings_frame(settings):
-    tab = tk.Frame(settings, bg="white")
+    tab = ctk.CTkFrame(settings)
 
     settings.add(tab, text="Settings")
+
+    
 
     return tab
